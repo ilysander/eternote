@@ -25,7 +25,7 @@ app.use(router);
 jsrender.express('html', app);
 app.set('view engine', 'html');
 
-jsrender.loadFileSync('#noteTemplate', './frontend/note.html');
+jsrender.loadFileSync('#noteTemplate', path.join(__dirname, '../frontend', 'note.html'));
 
 router.get('/', function(req, res) {
 	res.sendFile(path.join(__dirname, '../frontend', 'index.html'));
