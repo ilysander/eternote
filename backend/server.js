@@ -17,7 +17,8 @@ server.listen( port, function() {
 	console.log("Web server listening on port " + port);
 });
 
-app.use('/resources', express.static(path.join(__dirname, '../frontend', 'resources')));
+app.use('/assets', express.static(path.join(__dirname, '../frontend', 'assets')));
+app.use('/components', express.static(path.join(__dirname, '../frontend', 'components')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(router);
