@@ -1,0 +1,25 @@
+{
+  "name": "ethernote",
+  "version": "1.0.0",
+  "description": "",
+  "main": "backend/server.js",
+  "scripts": {
+    "start" : "node backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Renzo425/ethernote.git"
+  },
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "node-jsrender": "^1.0.6",
+    "socket.io": "^1.3.7"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Renzo425/ethernote/issues"
+  },
+  "homepage": "https://github.com/Renzo425/ethernote#readme"
+}
