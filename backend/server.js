@@ -4,13 +4,16 @@ var http = require('http');
 var path = require('path');
 var bodyParser = require('body-parser');
 var jsrender = require('node-jsrender');
-
+var uuid = require('node-uuid');
 
 var app = express();
 var server = http.createServer(app);
 var io = require('socket.io')(server);
 var port = process.env.PORT || 3000;
 
+var sockets = [];
+
+// simulating table "texts"
 var texts = [];
 
 server.listen( port, function() {
@@ -26,7 +29,7 @@ app.use(router);
 jsrender.express('html', app);
 app.set('view engine', 'html');
 
-jsrender.loadFileSync('#noteTemplate', path.join(__dirname, '../frontend', 'note.html'));
+jsrender.loadFileSync('#noteTemplate', path.join(__dirname, '../frontend', 'components', 'note', 'note.html'));
 
 router.get('/', function(req, res) {
 	res.sendFile(path.join(__dirname, '../frontend', 'index.html'));
@@ -34,35 +37,70 @@ router.get('/', function(req, res) {
 
 router.get('/:id', function(req, res) {
 	var id = req.params.id;
-	res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
+
+	getText(id, function(text) {
+		if (text === undefined) {
+			text = { id: id, content: '' }
+			createText(text);
+		}
+
+		res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
+		res.end(jsrender.render['#noteTemplate'](text));
+	});
+
+	
+});
+
+io.on('connection', function (socket) {
+	var joined = false;
+
+	socket.on('join', function(message) {
+		socket.textId = message.textId;
+		socket.id = uuid.v1();
+		sockets.push(socket);
+		joined = true;
+	});
+
+	socket.on('change', function(message) {
+		notifyContentChanged(message.text);
+		updateText(message.text);
+	});
+
+	socket.on('disconnect', function() {
+		if (joined) {
+			sockets.forEach(function(socket2, index) {
+				if (socket2.id == socket.id) {
+					sockets.splice(index,1);
+					return;
+				}
+			});
+		}
+	});
+});
+
+function notifyContentChanged(text) {
+	sockets.forEach(function(socket) {
+		if (socket.textId == text.id) {
+			socket.emit('change', { content: text.content });
+		}
+	});
+};
+
+function getText(id, callback) {
 	var text;
 	texts.forEach(function(text2) {
 		if (text2.id == id) {
 			text = text2;
-			return;
 		}
 	});
 
-	if (text === undefined) {
-		var text = {id: id, text: ''}
-		createText(text);
-	}
-
-	res.end(jsrender.render['#noteTemplate'](text));
-});
-
-io.on('connection', function (socket) {
-	socket.on('change', function(text) {
-		updateText(text);
-		socket.broadcast.emit('change', { text: text.text });
-	});
-});
+	callback(text);
+}
 
 function updateText(text) {
 	texts.forEach(function(text2) {
 		if (text2.id == text.id) {
-			text2.text = text.text
-			return;
+			text2.content = text.content;
 		}
 	});
 };

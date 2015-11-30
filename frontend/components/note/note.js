@@ -1,14 +1,17 @@
 $(function(){
 
-	var $text = $('#text');
+	var $content = $('#content');
 	var $id = $('#id');
 	var socket = io();
 
-	$text.keyup(function(event) {
-		socket.emit('change', {id: $id.val(), text: $text.val()});
+	socket.emit('join', { textId: $id.val() });
+
+	$content.keyup(function(event) {
+		var text = { id: $id.val(), content: $content.val() }
+		socket.emit('change', { text: text });
 	});
 
-	socket.on('change', function(data) {
-		$text.val(data.text);
+	socket.on('change', function(message) {
+		$content.val(message.content);
 	});
 });

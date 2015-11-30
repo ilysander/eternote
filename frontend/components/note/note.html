@@ -1,16 +1,16 @@
 <html>
 <head>
 	<title>{{:id}}</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
 </head>
 <body>
 	<div class="container">
 		<input type="hidden" value="{{:id}}" id="id"/>
 		<h1>{{:id}}</h1>
-		<textarea id="text" class="form-control" rows="30">{{:text}}</textarea>
+		<textarea id="content" class="form-control" rows="30">{{:content}}</textarea>
 	</div>
-	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-	<script src="https://cdn.socket.io/socket.io-1.3.7.js"></script>
-	<script src="resources/note.js"></script>
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/socket.io-1.3.7.js"></script>
+	<script src="components/note/note.js"></script>
 </body>
 </html>
