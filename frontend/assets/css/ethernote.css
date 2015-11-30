@@ -44,8 +44,8 @@ body > .container {
 }
 
 
-.ethereal-background { 
-  background: url('assets/images/footer.png') no-repeat center center fixed; 
+body { 
+  background: url('http://www.smartrotorsystems.ca/wp-content/uploads/2013/12/footer2.png') no-repeat center center fixed; 
   -webkit-background-size: contain;
   -moz-background-size: contain;
   -o-background-size: contain;
