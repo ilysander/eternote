@@ -32,7 +32,7 @@ app.set('view engine', 'html');
 jsrender.loadFileSync('#noteTemplate', path.join(__dirname, '../frontend', 'components', 'note', 'note.html'));
 
 router.get('/', function(req, res) {
-	res.sendFile(path.join(__dirname, '../frontend', 'index.html'));
+	res.sendFile(path.join(__dirname, '../frontend', 'components', 'index', 'index.html'));
 });
 
 router.get('/:id', function(req, res) {
