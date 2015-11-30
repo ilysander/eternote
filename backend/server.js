@@ -62,7 +62,7 @@ io.on('connection', function (socket) {
 	});
 
 	socket.on('change', function(message) {
-		notifyContentChanged(message.text);
+		notifyContentChanged(socket, message.text);
 		updateText(message.text);
 	});
 
@@ -78,9 +78,9 @@ io.on('connection', function (socket) {
 	});
 });
 
-function notifyContentChanged(text) {
+function notifyContentChanged(socketOrigin, text) {
 	sockets.forEach(function(socket) {
-		if (socket.textId == text.id) {
+		if (socket.textId == text.id && socket.id != socketOrigin.id) {
 			socket.emit('change', { content: text.content });
 		}
 	});
