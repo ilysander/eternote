@@ -5,11 +5,11 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var jsrender = require('node-jsrender');
 var uuid = require('node-uuid');
-
+require('./models');
 var app = express();
 var server = http.createServer(app);
 var io = require('socket.io')(server);
-var port = process.env.PORT || 80;
+var port = process.env.PORT || 2000;
 
 var sockets = [];
 
@@ -38,14 +38,14 @@ router.get('/', function(req, res) {
 router.get('/:id', function(req, res) {
 	var id = req.params.id;
 
-	getText(id, function(text) {
-		if (text === undefined) {
-			text = { id: id, content: '' }
-			createText(text);
+	getText(id, function(nota) {
+		if (nota === undefined|| nota.length ==0) {
+			nota = { id: id, content: '' }
+			createText(nota);
 		}
 
 		res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
-		res.end(jsrender.render['#noteTemplate'](text));
+		res.end(jsrender.render['#noteTemplate'](nota));
 	});
 
 	
@@ -87,14 +87,20 @@ function notifyContentChanged(socketOrigin, text) {
 };
 
 function getText(id, callback) {
-	var text;
-	texts.forEach(function(text2) {
-		if (text2.id == id) {
-			text = text2;
-		}
+	// var text;
+	// texts.forEach(function(text2) {
+	// 	if (text2.id == id) {
+	// 		text = text2;
+	// 	}
+	// });
+	
+	db.Nota.find({ id: id },function (error,nota) {
+		if(error)console.log(error);
+		console.log('callback nota encontrada');
+		console.log(nota);
+		callback(nota);
 	});
-
-	callback(text);
+	
 }
 
 function updateText(text) {
@@ -103,8 +109,23 @@ function updateText(text) {
 			text2.content = text.content;
 		}
 	});
+	db.Nota.update({ id: text.id}, { content: text.content },function (error,nota) {
+		console.log('actualizado!');
+		console.log(nota);
+	});
 };
 
-function createText(text) {
-	texts.push(text);
+function createText(nota) {
+	texts.push(nota);
+	console.log('createText');
+	console.log(nota);
+	var newNota= new db.Nota({
+		id:nota.id,
+		content:nota.content
+	});
+	console.log(newNota);
+	newNota.save(function (error,user) {
+		if(error)console.log(error);
+	});
+	
 };
