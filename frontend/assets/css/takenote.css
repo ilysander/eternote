@@ -11,7 +11,7 @@ html {
 }
 body {
   /* Margin bottom by footer height */
-  margin-bottom: 60px;
+  margin-bottom: 30px;
 }
 .footer {
   position: absolute;
@@ -19,7 +19,8 @@ body {
   width: 100%;
   /* Set the fixed height of the footer here */
   height: 60px;
-  background-color: #f5f5f5;
+  /*background-color: #f5f5f5;*/
+  background: url(/assets/images/paper.jpg) repeat rgb(44, 83, 176); 
 }
 
 
@@ -28,26 +29,36 @@ body {
 /* Not required for template or sticky footer method. */
 
 body > .container {
-  padding: 60px 15px 0;
+  padding: 30px 15px 0;
+  width: 98%;
 }
 .container .text-muted {
   margin: 20px 0;
+
 }
 
 .footer > .container {
   padding-right: 15px;
   padding-left: 15px;
+  
 }
 
 .footer > .container > .text-muted{
   color: green;
 }
 
+#content{
+  background: url(/assets/images/paper2.gif) repeat rgb(44, 83, 176); 
+  filter: alpha(opacity=40);
+  font-family: tahoma;
+  font-size: initial;
+  height: 85%;
+}
 
 body { 
-  background: url('http://www.smartrotorsystems.ca/wp-content/uploads/2013/12/footer2.png') no-repeat center center fixed; 
-  -webkit-background-size: contain;
+  background: url(/assets/images/paper.jpg) repeat rgb(44, 83, 176); 
+  /*-webkit-background-size: contain;
   -moz-background-size: contain;
   -o-background-size: contain;
-  background-size: contain;
+  background-size: contain;*/
 }

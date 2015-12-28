@@ -9,7 +9,7 @@ var uuid = require('node-uuid');
 var app = express();
 var server = http.createServer(app);
 var io = require('socket.io')(server);
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 80;
 
 var sockets = [];
 
