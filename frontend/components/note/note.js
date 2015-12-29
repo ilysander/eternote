@@ -25,7 +25,7 @@ console.log(r);
 
 	return pos;
 }
-
+var ultimoContenido ='';
 $(function(){
 
 	var $content = $('#content');
@@ -35,12 +35,25 @@ $(function(){
 	socket.emit('join', { textId: $id.val() });
 
 	$content.keyup(function(e) {
-		var text = { id: $id.val(), content: $content.val() }
-		socket.emit('change', { text: text });
+		var nota = { id: $id.val(), content: $content.val() }
+		socket.emit('change', { text: nota });
 	});
 
 	$content.click(function(e) {
 		console.log($content.getCursorPosition());
+	});
+	
+	$content.blur(function (e) {
+		var ultimoContenidoAux = $content.val();
+		if (ultimoContenidoAux == ultimoContenido) {
+			console.log('el contenido no ha cambiado');
+		}else{
+			ultimoContenido = ultimoContenidoAux;
+			var nota = { id: $id.val(), content: ultimoContenidoAux }
+			socket.emit('update', { text: nota });
+			console.log('update');
+			
+		}
 	});
 
 	socket.on('change', function(message) {

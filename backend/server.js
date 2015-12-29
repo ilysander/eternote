@@ -65,6 +65,12 @@ io.on('connection', function (socket) {
 		notifyContentChanged(socket, message.text);
 		updateText(message.text);
 	});
+	
+	socket.on('update', function(message) {
+		// notifyContentChanged(socket, message.text);
+		updateNote(message.text);
+	});
+
 
 	socket.on('disconnect', function() {
 		if (joined) {
@@ -87,20 +93,30 @@ function notifyContentChanged(socketOrigin, text) {
 };
 
 function getText(id, callback) {
-	// var text;
-	// texts.forEach(function(text2) {
-	// 	if (text2.id == id) {
-	// 		text = text2;
-	// 	}
-	// });
-	
-	db.Nota.find({ id: id },function (error,nota) {
-		if(error)console.log(error);
-		console.log('callback nota encontrada');
-		console.log(nota);
-		callback(nota);
+	var text;
+	// console.log('lista texts');
+	// console.log(texts);
+	texts.forEach(function(text2) {
+		if (text2.id == id) {
+			text = text2;
+		}
 	});
 	
+	if(text === undefined){
+		db.Nota.find({ id: id },function (error,nota) {
+		if(error)console.log(error);
+		// console.log('busqueda en bd');
+		// console.log(nota);
+		//si encuentra registros actualiza
+		if (nota.length !=0) {
+			console.log('nota encontrada en mongo db !!!');
+			texts.push(nota[0]);
+		}
+		callback(nota);
+		});
+	}else{
+		callback(text);
+	}
 }
 
 function updateText(text) {
@@ -109,21 +125,36 @@ function updateText(text) {
 			text2.content = text.content;
 		}
 	});
+	// db.Nota.update({ id: text.id}, { content: text.content },function (error,nota) {
+	// 	console.log('actualizado!');
+	// 	console.log(nota);
+	// });
+};
+
+function updateNote(text) {
+	//TODO debe tener atributo fecha para poder updatear el ultimo registro, esta fecha debe
+	//actualizarse en el lado de servidor
+	
+	// texts.forEach(function(text2) {
+	// 	if (text2.id == text.id) {
+	// 		text2.content = text.content;
+	// 	}
+	// });
 	db.Nota.update({ id: text.id}, { content: text.content },function (error,nota) {
 		console.log('actualizado!');
-		console.log(nota);
+		// console.log(nota);
 	});
 };
 
 function createText(nota) {
 	texts.push(nota);
-	console.log('createText');
-	console.log(nota);
+	// console.log('createText');
+	// console.log(nota);
 	var newNota= new db.Nota({
 		id:nota.id,
 		content:nota.content
 	});
-	console.log(newNota);
+	// console.log(newNota);
 	newNota.save(function (error,user) {
 		if(error)console.log(error);
 	});
