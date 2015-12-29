@@ -11,6 +11,52 @@ var server = http.createServer(app);
 var io = require('socket.io')(server);
 var port = process.env.PORT || 2000;
 
+var util = require('util');
+var winston = require('winston');
+winston.emitErrs = true;
+
+var logger = new winston.Logger({
+    transports: [
+        new winston.transports.File({
+            level: 'info',
+            filename: './logs/all-logs.log',
+            handleExceptions: true,
+            json: false,
+            maxsize: 5242880, //5MB 5242880
+            maxFiles: 100,
+            colorize: false,
+            timestamp:myTimestamp
+        }),
+        new winston.transports.Console({
+            level: 'debug',
+            handleExceptions: true,
+            json: false,
+            colorize: true,
+            timestamp:myTimestamp
+        })
+    ],
+    exitOnError: false
+});
+function myTimestamp() {
+var time = new Date();
+var tiempo = time.toString();
+var milis = time.getMilliseconds();
+
+var milisMostrar= '';
+if(milis<10){milisMostrar='00'+milis}
+else if(milis<100){milisMostrar='0'+milis}
+else{milisMostrar=''+milis}
+
+var fechaMostrar = tiempo.toString().substring(4,15);
+var horaMostrar = tiempo.toString().substring(16,24);
+return fechaMostrar + '|'+horaMostrar+'|'+milisMostrar;
+};
+module.exports = logger;
+module.exports.stream = {
+    write: function(message, encoding){
+        logger.info(message);
+    }
+};
 var sockets = [];
 
 // simulating table "texts"
@@ -50,6 +96,23 @@ router.get('/:id', function(req, res) {
 
 	
 });
+
+ // Handle 404
+  app.use(function(req, res) {
+      //res.render('404', { url: __dirname + '/public/pages/404.html' });
+      //res.send('404: Page not Found', 404);
+     //res.send('404: Page not Found', 404);
+      logger.error('error 404 no se puede acceder al:'+req.url);
+    //  res.sendfile(__dirname + '/public/pages/404.html');
+  });
+  
+  // Handle 500
+  app.use(function(err, req, res, next) {
+     //res.send('500: Internal Server Error', 500);
+      logger.error('error 505 :'+util.inspect(err));
+    //  res.sendfile(__dirname + '/public/pages/404.html');
+     //res.sendfile(__dirname + '/public/pages/404.html');
+  });
 
 io.on('connection', function (socket) {
 	var joined = false;
