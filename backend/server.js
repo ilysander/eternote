@@ -9,7 +9,7 @@ require('./models');
 var app = express();
 var server = http.createServer(app);
 var io = require('socket.io')(server);
-var port = process.env.PORT || 2000;
+var port = process.env.PORT || 80;
 
 var util = require('util');
 var winston = require('winston');
@@ -204,7 +204,7 @@ function updateNote(text) {
 	// 	}
 	// });
 	db.Nota.update({ id: text.id}, { content: text.content },function (error,nota) {
-		console.log('actualizado!');
+		logger.info('actualizado!');
 		// console.log(nota);
 	});
 };

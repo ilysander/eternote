@@ -1,0 +1,2 @@
+ruta para los logs
+agregar un gitignore para los archivos .gitignore
