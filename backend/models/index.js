@@ -6,8 +6,8 @@ if(!global.hasOwnProperty('db')){
 	var dbName = 'eternote'
 	
 	//the application is executed on the local machine...
-	mongoose.connect('mongodb://localhost/'+dbName);
-	
+	//mongoose.connect('mongodb://localhost/'+dbName);
+	mongoose.connect('mongodb://admin:1234@ds041683.mongolab.com:41683/'+dbName);
 	global.db = {
 		mongoose:mongoose,
 		//modelos
