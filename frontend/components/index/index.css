@@ -45,7 +45,7 @@ body > .container {
 
 
 .ethereal-background { 
-  background: url(/assets/images/paper.jpg) repeat rgb(44, 83, 176); 
+  background: url(/assets/images/paper.jpg) repeat rgb(255, 255, 255); 
   -webkit-background-size: contain;
   -moz-background-size: contain;
   -o-background-size: contain;
