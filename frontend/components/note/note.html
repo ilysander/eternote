@@ -4,57 +4,22 @@
 	<title>Editing {{:id}}</title>
 	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="assets/css/takenote.css">
-	    <link rel="shortcut icon" href="/assets/images/favicon/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="/assets/images/favicon/favicon.ico" type="image/x-icon">
 </head>
 
-<body>
-	<!--<div >-->
-	<!--<article class="cabecera" >-->
-	<div>
-		<div class="cabecera lineacabecera">
-			<i class="icon-paper-clip"></i>
-			<input type="hidden" value="{{:id}}" id="id" />
-			<h1>{{:id}}</h1>
-
-		</div>
-		<div class="publicidad-cabecera lineacabecera">
-			<!--publicidad 1-->
-		</div>
-
-
+<body class="ethereal-background">
+	<div class="container center">
+		<i class="icon-paper-clip"></i>
+		<input type="hidden" value="{{:id}}" id="id" />
+		<h1>{{:id}}</h1>
+		<textarea id="content" class="form-control" rows="30">{{:content}}</textarea>
 	</div>
-	<!--</article>-->
-
-	<!--<article >-->
-	<div>
-		<div class="contenido lineacontenido">
-
-			<textarea id="content" class="form-control" rows="30">{{:content}}</textarea>
-
-		</div>
-		<div class="publicidad-contenido lineacontenido">
-			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-			<!-- Footer Ad -->
-			<ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-8642247601889590" data-ad-slot="1755743468"></ins>
-			<script>
-				(adsbygoogle = window.adsbygoogle || []).push({});
-
-			</script>
-		</div>
-
-
-	</div>
-	<!--</article>-->
-
-	<!--</div>-->
 
 	<footer class="footer">
 		<div class="container">
 
 			<p class="text-muted">
-				<strong>Eternote &copy; 2015</strong> <i> http://www.eternote.com/{{:id}}</i>
-
+				<strong>Eternote &copy; 2015</strong> <i> http://eternote.com/{{:id}}</i>
+				
 			</p>
 
 		</div>
@@ -62,7 +27,7 @@
 	<script src="assets/js/jquery.min.js"></script>
 	<script src="assets/js/socket.io-1.3.7.js"></script>
 	<script src="components/note/note.js"></script>
-
+	
 </body>
 
 </html>

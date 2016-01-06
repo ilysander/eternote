@@ -23,55 +23,14 @@ body {
   background: url(/assets/images/paper.jpg) repeat rgb(255, 255, 255); 
 }
 
-/*.cabecera{
-  display: inline-block;
-}*/
-/*.contenido-cabecera{
-  display: inline-block;
-  width: 100%;
-}*/
 
-.lineacabecera {
-    display: inline-block;
-  
-}
-.cabecera {
-    /*float: left;*/
-  /*margin: 0 1.5%;*/
-  width: 30%;
-  text-align: center;
-}
-
-.publicidad-cabecera {
-    float: right;
-  /*margin: 0 1.5%;*/
-  width: 65%;
-}
-.lineacontenido {
-    display: inline-block;
-  
-}
-/*.contenido{
-  display: inline-block;
-}*/
-.contenido {
-  /*float: left;*/
-  /*margin: 0 1.5%;*/
-      padding: 30px 15px 0;
-  width: 78%;
-}
-.publicidad-contenido {
-  float: right;
-  /*margin: 0 1.5%;*/
-  width: 20%;
-}
 /* Custom page CSS
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
 
 body > .container {
   padding: 30px 15px 0;
-  width: 70%;
+  width: 98%;
 }
 .container .text-muted {
   margin: 20px 0;
@@ -93,7 +52,7 @@ body > .container {
   filter: alpha(opacity=40);
   font-family: tahoma;
   font-size: initial;
-  height: 90%;
+  height: 85%;
 }
 
 body { 
