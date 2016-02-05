@@ -9,7 +9,7 @@ require('./models');
 var app = express();
 var server = http.createServer(app);
 var io = require('socket.io')(server);
-var port = process.env.PORT || 80;
+var port = process.env.PORT || 2000;
 
 var util = require('util');
 var winston = require('winston');
